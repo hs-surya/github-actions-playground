@@ -13,3 +13,7 @@ This repository is my hands-on environment for learning:
 ## Goal
 
 Learn how to automate software workflows using GitHub Actions.
+
+## First Feature
+
+This change was created inside a separate Git branch.
