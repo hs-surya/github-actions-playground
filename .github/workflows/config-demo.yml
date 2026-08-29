@@ -1,0 +1,31 @@
+name: Config Demo
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  generate-config-report:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Generate configurable report
+        env:
+          REPORT_TITLE: ${{ vars.REPORT_TITLE }}
+          DEMO_API_KEY: ${{ secrets.DEMO_API_KEY }}
+        run: python config_report.py
+
+      - name: Upload configurable report
+        uses: actions/upload-artifact@v4
+        with:
+          name: config-report
+          path: config-report.txt
