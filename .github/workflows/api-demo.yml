@@ -1,0 +1,33 @@
+name: GitHub API Demo
+
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  generate-api-report:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Call GitHub API and generate report
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python github_api_report.py
+
+      - name: Upload API report
+        uses: actions/upload-artifact@v4
+        with:
+          name: github-api-report
+          path: github-api-report.txt
